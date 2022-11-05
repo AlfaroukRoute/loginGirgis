@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+
+    <!-- Fontawesome CSS -->
+    <link rel="stylesheet" href="assets/fontawesome/css/all.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/style.css">
+
+    <!-- Script JS -->
+    <script language="JavaScript" type="text/javascript" src="assets/js/script.js"></script>
+
+    <script>
+        // if user is login redirect to home page
+        if (Authentication.isLogin()) {
+            window.location.href = "index.html";
+        }
+    </script>
+
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav id="navbar" class="navbar bg-primary navbar-dark shadow fixed-top">
+        <div class="container">
+            <a href="index.html" class="navbar-brand mb-0 h1 fw-bold" title="Smart Login">Smart Login</a>
+            <div class="d-flex">
+                <a href="register.html" class="btn btn-success" title="Sign up">
+                    Sign up <i class="fa-solid fa-user-plus"></i>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Content -->
+    <main id="main">
+        <!-- login form -->
+        <div class="container">
+            <div class="row">
+
+                <div class="col-12 col-lg-8 mx-auto">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">Login</h5>
+                            <hr>
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email address</label>
+                                <input type="email" class="form-control" id="email" name="email"
+                                    placeholder="Enter your email address" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Password</label>
+                                <input type="password" class="form-control" id="password" name="password"
+                                    placeholder="Enter your password" required>
+                            </div>
+                            <button type="submit" id="submitLogin" class="btn btn-primary">Login</button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Bootstrap JS -->
+    <script src="assets/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Fontawesome JS -->
+    <script src="assets/fontawesome/js/all.min.js"></script>
+
+    <!-- Main JS -->
+    <script language="JavaScript" type="text/javascript" src="assets/js/main.js"></script>
+
+    <script>
+        // load user list from local storage
+        UserList.loadUserList();
+
+        // login
+        document.getElementById("submitLogin").addEventListener("click", function () {
+            let email = document.getElementById("email").value;
+            let password = document.getElementById("password").value;
+
+            // replace email, password form whitespaces
+            email = email.replace(/\s+/g, '');
+            password = password.replace(/\s+/g, '');
+
+            // trim email and password
+            email = email.trim();
+            password = password.trim();
+
+            // check email and password
+            if (email == "" || password == "") {
+                alert("Email and password can't be empty");
+                return;
+            }
+
+            if (Authentication.login(email, password)) {
+                window.location.href = "index.html";
+            } else {
+                alert("Invalid email or password");
+            }
+        });
+    </script>
+
+</body>
+
+</html>
